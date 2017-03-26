@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet/less" type="text/css" href="style.less" />
+	</head>
+	<body>
+		<noscript>JavaScript is required to use this font editor.</noscript>
+
+		<header>PGF font editor</header>
+
+		<div id="character-editor"></div>
+		<div id="character-metrics"></div>
+		<div id="character-map"></div>
+		<div id="palette"></div>
+
+		<script>
+			less = {
+				env: "development",
+				async: false,
+				fileAsync: false,
+				poll: 1000,
+				functions: {},
+				dumpLineNumbers: "comments",
+				relativeUrls: false,
+			};
+		</script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.2.0/less.min.js"></script>
+		<script src="js/jquery-2.1.3.min.js" defer="defer"></script>
+		<script src="dist/main.js" defer="defer"></script>
+	</body>
+</html>
