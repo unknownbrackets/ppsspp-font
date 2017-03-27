@@ -9,7 +9,7 @@ let AppData = {
 		for (var i = 0; i < pgf.header.firstGlyph; ++i)
 			pgf.chars[i] = null;
 		for (var i = 0; i < pgf.charMap.length; ++i)
-			pgf.chars[pgf.header.firstGlyph + i] = $.extend(true, {}, pgf.glyphs[pgf.charMap[i]]);
+			pgf.chars[pgf.header.firstGlyph + i] = pgf.glyphs[pgf.charMap[i]] || {};
 
 		this.primary = pgf;
 

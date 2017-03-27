@@ -1,6 +1,6 @@
-import chareditor from './chareditor.js';
+import AppCharEditor from './chareditor.js';
 import AppCharMap from './charmap.js';
-import charmetrics from './charmetrics.js';
+import AppCharMetrics from './charmetrics.js';
 import AppData from './data/index.js';
 import loadData from './data/load.js';
 import saveData from './data/save.js';
@@ -10,16 +10,19 @@ import saveData from './data/save.js';
 
 $(document).on('click', '#save', function (ev)
 {
-    var a = document.createElement('a');
-    a.style = 'display: none;';
-    document.body.appendChild(a);
+	// TODO
+	AppCharEditor.serialize(AppData.getPrimaryChar(AppCharMap.active));
+
+	var a = document.createElement('a');
+	a.style = 'display: none;';
+	document.body.appendChild(a);
 
 	saveData().then(blob => {
 		const url = window.URL.createObjectURL(blob);
 		a.href = url;
 		a.download = "test.pgf";
 		a.click();
-        window.URL.revokeObjectURL(url);
+		window.URL.revokeObjectURL(url);
 	}, err => {
 		throw err;
 	});
