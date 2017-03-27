@@ -38,7 +38,6 @@ function readHeader(view)
 		maxBaseYAdjust: view.readS32(),
 		minCenterXAdjust: view.readS32(),
 		maxTopYAdjust: view.readS32(),
-
 		maxAdvanceX: view.readS32(),
 		maxAdvanceY: view.readS32(),
 		maxSizeX: view.readS32(),
@@ -56,7 +55,7 @@ function readHeader(view)
 
 		shadowMapLength: view.readS32(),
 		shadowMapBpe: view.readS32(),
-		unk10: view.readF32(),
+		unk10: view.readU32(),
 		shadowScale0: view.readS32(),
 		shadowScale1: view.readS32(),
 		unk11: view.readStr(8),

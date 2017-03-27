@@ -97,7 +97,7 @@ class ReadStream
 					this.bitpos += consumed;
 					remaining -= consumed;
 
-					if (this.bitpos > 8)
+					if (this.bitpos >= 8)
 					{
 						this.pos++;
 						this.bitpos -= 8;
