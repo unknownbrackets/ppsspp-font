@@ -8,6 +8,23 @@ import saveData from './data/save.js';
 
 // TODO
 
+$(document).on('click', '#save', function (ev)
+{
+    var a = document.createElement('a');
+    a.style = 'display: none;';
+    document.body.appendChild(a);
+
+	saveData().then(blob => {
+		const url = window.URL.createObjectURL(blob);
+		a.href = url;
+		a.download = "test.pgf";
+		a.click();
+        window.URL.revokeObjectURL(url);
+	}, err => {
+		throw err;
+	});
+});
+
 var $html = $(document.documentElement);
 
 $.event.props.push('dataTransfer');
