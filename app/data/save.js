@@ -168,11 +168,44 @@ class PGFSerializer
 		if (info.flags & FONT_PGF_BMP_OVERLAY)
 		{
 			// TODO: Here's where we COULD optimize writing the glyph.
-			for (let i = 0; i < info.data.length; ++i)
+			const dataLen = info.data.length;
+			for (let i = 0; i < dataLen; ++i)
 			{
-				// 1 at a time.
-				glyphStream.writeBits(4, 0);
-				glyphStream.writeBits(4, info.data[i]);
+				const c = info.data[i];
+				let maxSpan = Math.min(7, dataLen - i - 1);
+				let span = 0;
+				for (let j = 1; j <= maxSpan; ++j)
+				{
+					if (c != info.data[i + j])
+						break;
+					span = j;
+				}
+
+				if (span != 0 || maxSpan < 2)
+				{
+					// Simple RLE sequence.
+					glyphStream.writeBits(4, span);
+					glyphStream.writeBits(4, c);
+					i += span;
+				}
+				else
+				{
+					// For non-sequence RLE, we look to find the next sequence.
+					span = 2;
+					for (let j = 3; j <= maxSpan; ++j)
+					{
+						if (info.data[i + j - 1] == info.data[i + j])
+							break;
+						span = j - 1;
+					}
+
+					// Since we didn't have a sequence, let's write the next 2 pixels too.
+					glyphStream.writeBits(4, 15 - span);
+					glyphStream.writeBits(4, c);
+					for (let j = 1; j <= span; ++j)
+						glyphStream.writeBits(4, info.data[i + j]);
+					i += span;
+				}
 			}
 
 			// Glyphs always align to 4 bytes, so do that here.
